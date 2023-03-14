@@ -1,6 +1,16 @@
-import java.util.Scanner;
-import Model.Toy;
+package Core;
+
 import Model.AllToys;
+import Model.Toy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Scanner;
 public class ViewTS {
 
     public enum Commands {
@@ -14,6 +24,7 @@ public class ViewTS {
         EXIT
     }
 
+    String FILEJSON = "data/alltoys.json";
     AllToys allToys = new AllToys();
     public void run() {
         Commands com = Commands.NONE;
@@ -90,6 +101,7 @@ public class ViewTS {
         { System.out.println("NumberFormatException: " + nfe.getMessage()); }
         Toy newToy = new Toy(id, name, quantity, weightFactor);
         allToys.listToys.put(id, newToy);
+        writeJson(FILEJSON, allToys);
     }
 
     private void showHelp() {
@@ -102,6 +114,25 @@ public class ViewTS {
         Scanner in = new Scanner(System.in);
         System.out.print(message);
         return in.nextLine();
+    }
+
+
+    public void writeJson(String fileName, AllToys at) throws IOException {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .create();
+        FileWriter writer = new FileWriter(fileName);
+        String gsonStr = gson.toJson(at.listToys);
+        writer.write(gsonStr);
+        writer.close();
+    }
+
+    public AllToys readJson(String fileName, AllToys at) throws IOException {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        Reader reader = Files.newBufferedReader(Paths.get(fileName));
+         AllToys fam = gson.fromJson(reader, at.getClass());
+        return fam;
     }
 
 }
