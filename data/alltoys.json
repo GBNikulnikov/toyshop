@@ -1,14 +1,8 @@
 {
-  "1": {
-    "id": 1,
-    "name": "Sw",
-    "quantity": 3,
-    "weightFactor": 20
-  },
-  "2": {
-    "id": 2,
-    "name": "Sh",
-    "quantity": 4,
-    "weightFactor": 30
+  "3": {
+    "id": 3,
+    "name": "qw",
+    "quantity": 1,
+    "weightFactor": 10
   }
 }

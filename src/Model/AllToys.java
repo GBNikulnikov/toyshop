@@ -2,7 +2,6 @@ package Model;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class AllToys {
 
@@ -17,16 +16,15 @@ public class AllToys {
     }
 
     public void printList(){
-        Set<Integer> keys = listToys.keySet();
-        for (Integer k: keys) {
-            System.out.printf("id: ");
-        }
-
-        //        for (int i=0; i<listToys.size(); i++)
-//        {
-//
-//            Блок операторов;
+//        Set<Integer> keys = listToys.keySet();
+//        for (Integer k: keys) {
+//            System.out.printf("id: ");
 //        }
+
+        for (Map.Entry<Integer, Toy> item : listToys.entrySet()){
+
+            System.out.printf("Id: %d  Игрушка: %s \n", item.getKey(), item.getValue());
+        }
     }
     public void saveListToysJSON(){
 

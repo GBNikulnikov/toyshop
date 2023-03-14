@@ -80,8 +80,10 @@ public class ViewTS {
 
 
     private void list() throws Exception {
-//        for (User user : userController.getUsers()) {
-        System.out.println("");
+
+        readJson(FILEJSON, allToys);
+        allToys.printList();
+//        System.out.println("");
     }
 
     private void create() throws Exception {
@@ -127,12 +129,12 @@ public class ViewTS {
         writer.close();
     }
 
-    public AllToys readJson(String fileName, AllToys at) throws IOException {
+    public void readJson(String fileName, AllToys at) throws IOException {
+
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         Reader reader = Files.newBufferedReader(Paths.get(fileName));
-         AllToys fam = gson.fromJson(reader, at.getClass());
-        return fam;
+         at.listToys = gson.fromJson(reader, at.listToys.getClass());
     }
 
 }
