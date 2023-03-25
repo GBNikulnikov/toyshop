@@ -2,14 +2,8 @@ package Core;
 
 import Model.AllToys;
 import Model.Toy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Scanner;
 public class ViewTS {
 
@@ -24,7 +18,6 @@ public class ViewTS {
         EXIT
     }
 
-    String FILEJSON = "data/alltoys.json";
     AllToys allToys = new AllToys();
     public void run() {
         Commands com = Commands.NONE;
@@ -43,6 +36,7 @@ public class ViewTS {
                     case DELETE -> delete();
                 }
             } catch (Exception ex) {
+                System.out.println(ex.getMessage());
                 System.out.println("Неверный ввод");
             }
         }
@@ -51,59 +45,43 @@ public class ViewTS {
 
 
     private void read() throws Exception {
-        String id = prompt("Идентификатор пользователя: ");
+        int id = promptInt("Id игрушки: ");
+        allToys.readToy(id);
+
 //        User user_ = userController.readUser(id);
 //        System.out.println(user_);
     }
 
     private void update() throws Exception {
-        String userid = prompt("Идентификатор пользователя: ");
-        String field_name = prompt("Какое поле изменить (FIO,NAME,TELEPHONE): ").toUpperCase();
-//        String param = null;
-//        if (Fields.valueOf(field_name) == Fields.TELEPHONE) {
-//            param = catchTelephone(param);
-//            if (param == null) {
-//                return;
-//            }
-//        } else {
-//            param = prompt("Введите новое значение: ");
-//        }
-//        User _user = userController.readUser(userid);
-//        userController.updateUser(_user, Fields.valueOf(field_name.toUpperCase()), param);
+        int id = promptInt("Id игрушки: ");
+        int fieldNumber = promptInt("Какое поле изменить (1-Название,2-Кол-во, 3-вес(%)): ");
+        String param = prompt("Введите новое значение: ");
+        allToys.updateToy(id, fieldNumber, param);
     }
 
     private void delete() throws Exception {
-        String userid = prompt("Идентификатор пользователя: ");
-//        User _user = userController.readUser(userid);
-//        userController.deleteUser(_user);
+        int id = promptInt("Id игрушки: ");
+        allToys.deleteToy(id);
     }
 
 
     private void list() throws Exception {
-
-        readJson(FILEJSON, allToys);
         allToys.printList();
 //        System.out.println("");
     }
 
-    private void create() throws Exception {
+    private void create() throws IOException {
         int id = 0;
         int quantity = 0;
         int weightFactor = 0;
-        try
-            { id = Integer.parseInt(prompt("Id игрушки: ")); }
-        catch (NumberFormatException nfe)
-            { System.out.println("NumberFormatException: " + nfe.getMessage()); }
+        id = promptInt("Id игрушки: ");
         String name = prompt("Название: ");
-        try {
-            quantity = Integer.parseInt(prompt("Количество: "));
-            weightFactor = Integer.parseInt(prompt("Вес(%) в розыгрыше: "));
-        }
-        catch (NumberFormatException nfe)
-        { System.out.println("NumberFormatException: " + nfe.getMessage()); }
+        quantity = promptInt("Количество: ");
+        weightFactor = Integer.parseInt(prompt("Вес(%) в розыгрыше: "));
         Toy newToy = new Toy(id, name, quantity, weightFactor);
-        allToys.listToys.put(id, newToy);
-        writeJson(FILEJSON, allToys);
+        allToys.listToys.add(newToy);
+        allToys.saveList();
+
     }
 
     private void showHelp() {
@@ -117,25 +95,13 @@ public class ViewTS {
         System.out.print(message);
         return in.nextLine();
     }
-
-
-    public void writeJson(String fileName, AllToys at) throws IOException {
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .create();
-        FileWriter writer = new FileWriter(fileName);
-        String gsonStr = gson.toJson(at.listToys);
-        writer.write(gsonStr);
-        writer.close();
+    private int promptInt(String inputPrompt) {
+        int intValue = 0;
+        try
+            {intValue = Integer.parseInt(prompt(inputPrompt));}
+        catch (NumberFormatException nfe)
+            {System.out.println("Неверный формат ввода числа: " + nfe.getMessage());}
+        return intValue;
     }
-
-    public void readJson(String fileName, AllToys at) throws IOException {
-
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        Reader reader = Files.newBufferedReader(Paths.get(fileName));
-         at.listToys = gson.fromJson(reader, at.listToys.getClass());
-    }
-
 }
 

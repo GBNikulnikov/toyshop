@@ -1,8 +1,20 @@
-{
-  "3": {
+[
+  {
+    "id": 2,
+    "name": "Мяч",
+    "quantity": 12,
+    "weightFactor": 22
+  },
+  {
     "id": 3,
-    "name": "qw",
-    "quantity": 1,
-    "weightFactor": 10
+    "name": "Меч",
+    "quantity": 4,
+    "weightFactor": 20
+  },
+  {
+    "id": 5,
+    "name": "Щит",
+    "quantity": 4,
+    "weightFactor": 15
   }
-}
+]
