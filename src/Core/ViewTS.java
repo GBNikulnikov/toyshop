@@ -20,7 +20,8 @@ public class ViewTS {
     }
 
     AllToys allToys = new AllToys();
-    public void run() {
+    public void run() throws IOException {
+        allToys.listToys = allToys.readJson(allToys.FILEJSON);
         Commands com = Commands.NONE;
         showHelp();
         while (true) {
@@ -94,7 +95,8 @@ public class ViewTS {
 
     private void draw() throws IOException {
         System.out.println("!!!Розыгрыш призов!!!");
-        allToys.drawPrize();
+        String name = prompt("Имя участника: ");
+        allToys.drawPrize(name);
     }
 
     private String prompt(String message) {

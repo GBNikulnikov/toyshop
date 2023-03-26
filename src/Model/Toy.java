@@ -42,7 +42,7 @@ public class Toy implements Comparable<Toy> {
 
     @Override
     public String toString() {
-        return "Id игрушки:" + id + "; Название: " + name + "; Кол-во" + quantity + "; Вес(%): " + weightFactor;
+        return "Id игрушки:" + id + "; Название: " + name + "; Кол-во " + quantity + "; Вес(%): " + weightFactor;
     }
 
     @Override

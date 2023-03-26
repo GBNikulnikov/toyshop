@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
@@ -16,7 +17,8 @@ import java.util.Random;
 public class AllToys {
 
     public ArrayList<Toy> listToys = new ArrayList<>();
-    String FILEJSON = "data/alltoys.json";
+    public String FILEJSON = "data/alltoys.json";
+    String FILEOUT = "data/drawprize.txt";
 
     public ArrayList<Toy> getListToys() {
         return listToys;
@@ -83,7 +85,7 @@ public class AllToys {
             }
     }
 
-    public void drawPrize() throws IOException {
+    public void drawPrize(String name) throws IOException {
 //        List<Toy> sortedList = listToys.stream()
 //            .sorted(Comparator
 //                .comparingInt(Toy::getWeightFactor)).toList();
@@ -116,6 +118,11 @@ public class AllToys {
             }
         }
         Toy currentToy = getToyById(idToy);
+        FileWriter fileWriter = new FileWriter(FILEOUT,true);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        printWriter.println("Участник викторины " + name + " выиграл " + currentToy.getName());
+        printWriter.close();
+
         currentIndex = listToys.indexOf(currentToy);
         int currentQuantity = listToys.get(currentIndex).getQuantity();
         if (currentQuantity > 1){

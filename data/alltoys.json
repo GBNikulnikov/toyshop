@@ -2,13 +2,13 @@
   {
     "id": 2,
     "name": "Мяч",
-    "quantity": 10,
+    "quantity": 5,
     "weightFactor": 22
   },
   {
     "id": 5,
     "name": "Щит",
-    "quantity": 3,
+    "quantity": 4,
     "weightFactor": 15
   }
 ]
