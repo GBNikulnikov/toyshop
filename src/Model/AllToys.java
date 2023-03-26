@@ -112,23 +112,22 @@ public class AllToys {
         }
         int randomFactor = rnd.nextInt(sumWeight - 1);
         for (int i = 0; i < countSteps; i++) {
-            if (randomFactor >= aSteps[i][1] && randomFactor <= aSteps[i][2] ) {
+            if (randomFactor >= aSteps[i][1] && randomFactor <= aSteps[i][2]) {
                 idToy = aSteps[i][0];
                 break;
             }
         }
         Toy currentToy = getToyById(idToy);
-        FileWriter fileWriter = new FileWriter(FILEOUT,true);
+        FileWriter fileWriter = new FileWriter(FILEOUT, true);
         PrintWriter printWriter = new PrintWriter(fileWriter);
         printWriter.println("Участник викторины " + name + " выиграл " + currentToy.getName());
         printWriter.close();
 
         currentIndex = listToys.indexOf(currentToy);
         int currentQuantity = listToys.get(currentIndex).getQuantity();
-        if (currentQuantity > 1){
+        if (currentQuantity > 1) {
             listToys.get(currentIndex).setQuantity(currentQuantity - 1);
-        }
-        else {
+        } else {
             listToys.remove(currentIndex);
         }
         saveList();

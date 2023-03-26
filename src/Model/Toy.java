@@ -17,6 +17,7 @@ public class Toy implements Comparable<Toy> {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -24,21 +25,26 @@ public class Toy implements Comparable<Toy> {
     public int getWeightFactor() {
         return weightFactor;
     }
+
     public void setWeightFactor(int weightFactor) {
         this.weightFactor = weightFactor;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {
         this.id = id;
     }
-    public int getId() {
-        return id;
+
+    public int getQuantity() {
+        return quantity;
     }
 
-    public int getQuantity() {return quantity;}
-
-    public void setQuantity(int quantity) {this.quantity = quantity;}
-
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     @Override
     public String toString() {

@@ -5,21 +5,11 @@ import Model.Toy;
 
 import java.io.IOException;
 import java.util.Scanner;
+
 public class ViewTS {
 
-    public enum Commands {
-        NONE,
-        LIST,
-        READ,
-        CREATE,
-        UPDATE,
-        DELETE,
-        DRAW,
-        HELP,
-        EXIT
-    }
-
     AllToys allToys = new AllToys();
+
     public void run() throws IOException {
         allToys.listToys = allToys.readJson(allToys.FILEJSON);
         Commands com = Commands.NONE;
@@ -45,7 +35,6 @@ public class ViewTS {
         }
     }
 
-
     private void read() throws Exception {
         int id = promptInt("Id игрушки: ");
         allToys.readToy(id);
@@ -65,7 +54,6 @@ public class ViewTS {
         int id = promptInt("Id игрушки: ");
         allToys.deleteToy(id);
     }
-
 
     private void list() throws Exception {
         allToys.printList();
@@ -107,11 +95,24 @@ public class ViewTS {
 
     private int promptInt(String inputPrompt) {
         int intValue = 0;
-        try
-            {intValue = Integer.parseInt(prompt(inputPrompt));}
-        catch (NumberFormatException nfe)
-            {System.out.println("Неверный формат ввода числа: " + nfe.getMessage());}
+        try {
+            intValue = Integer.parseInt(prompt(inputPrompt));
+        } catch (NumberFormatException nfe) {
+            System.out.println("Неверный формат ввода числа: " + nfe.getMessage());
+        }
         return intValue;
+    }
+
+    public enum Commands {
+        NONE,
+        LIST,
+        READ,
+        CREATE,
+        UPDATE,
+        DELETE,
+        DRAW,
+        HELP,
+        EXIT
     }
 
 }
