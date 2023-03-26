@@ -14,6 +14,7 @@ public class ViewTS {
         CREATE,
         UPDATE,
         DELETE,
+        DRAW,
         HELP,
         EXIT
     }
@@ -32,6 +33,7 @@ public class ViewTS {
                     case READ -> read();
                     case UPDATE -> update();
                     case LIST -> list();
+                    case DRAW -> draw();
                     case HELP -> showHelp();
                     case DELETE -> delete();
                 }
@@ -41,7 +43,6 @@ public class ViewTS {
             }
         }
     }
-
 
 
     private void read() throws Exception {
@@ -90,11 +91,18 @@ public class ViewTS {
             System.out.println(c);
         }
     }
+
+    private void draw() throws IOException {
+        System.out.println("!!!Розыгрыш призов!!!");
+        allToys.drawPrize();
+    }
+
     private String prompt(String message) {
         Scanner in = new Scanner(System.in);
         System.out.print(message);
         return in.nextLine();
     }
+
     private int promptInt(String inputPrompt) {
         int intValue = 0;
         try
@@ -103,5 +111,6 @@ public class ViewTS {
             {System.out.println("Неверный формат ввода числа: " + nfe.getMessage());}
         return intValue;
     }
+
 }
 

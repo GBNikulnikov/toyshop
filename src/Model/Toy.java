@@ -39,6 +39,7 @@ public class Toy implements Comparable<Toy> {
 
     public void setQuantity(int quantity) {this.quantity = quantity;}
 
+
     @Override
     public String toString() {
         return "Id игрушки:" + id + "; Название: " + name + "; Кол-во" + quantity + "; Вес(%): " + weightFactor;
